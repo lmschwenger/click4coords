@@ -1,4 +1,4 @@
-from givemecoords import create_app
+from click4coords import create_app
 
 app = create_app()
 

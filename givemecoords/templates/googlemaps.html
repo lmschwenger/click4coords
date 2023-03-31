@@ -3,10 +3,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>Google Maps Example</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
     <title>C4C</title>
     <script src="https://maps.googleapis.com/maps/api/js?key={{API_KEY}}&callback=initMap"></script>
 
@@ -16,7 +16,8 @@
 
 <body style="margin: 0">
 <header id="header">
-    <h1><span class="click-effect">CLICK</span><span class="middle">4</span><span class="coordinates">COORD NATES</span></h1>
+    <h1><span class="click-effect">CLICK</span><span class="middle">4</span><span class="coordinates">COORD NATES</span>
+    </h1>
 </header>
 <div id="map"></div>
 <div id="data-box">

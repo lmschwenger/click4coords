@@ -1,8 +1,56 @@
+<!DOCTYPE html>
+<html>
 
-<body>
-<div class="content-section" style="font-size: 2.7vmin">
-    <h1 style="color: rgba(1,1,1)"> Kort over målestationer </h1>
-    {{sndmap.js}}
-    {{sndmap.html}}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Google Maps Example</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Google Maps Example</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}"></script>
+    <script>showDialog("Right click to save coordinates~~~");</script>
+</head>
+
+<body style="margin: 0">
+<header id="header">
+    <h1><span class="click-effect">CLICK</span><span class="middle">4</span><span class="coordinates">COORD NATES</span></h1>
+</header>
+<div id="map"></div>
+<div id="data-box">
+    <h2 style="font-family: 'Courier New';">Coordinates</h2>
+    <label for="latitude">Latitude:</label>
+    <input id="latitude" type="text">
+    <label for="longitude">Longitude:</label>
+    <input id="longitude" type="text">
+
+    <div id="result-box">
+        <h2 style="font-family: 'Courier New', monospace;">Conversion</h2>
+        <div id="conversion-box">
+            <select id="epsg">
+                {% for item in epsg_list %}
+                <option value="{{ item }}">{{ item }}</option>
+                {% endfor %}
+            </select>
+            <button id='convert-btn' onclick="convert()">Convert</button>
+        </div>
+        <label for="Latitude">Result 1:</label>
+        <input id="result1" type="text">
+        <label for="Longitude">Result 2:</label>
+        <input id="result2" type="text">
+    </div>
+
+    <button id="copy-btn" onclick="copyToClipboard()">Copy to clipboard</button>
+
 </div>
+
+<footer id="footer">
+    <p>FOR JOMAD. WITH PROJ. BY ME.</p>
+</footer>
+
+<script src="{{ url_for( 'static', filename='main.js') }}"></script>
 </body>
+</html>
+
+
+

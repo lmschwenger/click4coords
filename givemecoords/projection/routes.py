@@ -8,23 +8,17 @@ gmaps = Blueprint('GoogleMaps', __name__)
 
 
 @gmaps.route("/")
-def mapview():
+def map():
     # creating a map in the view
     mymap = Map(
         identifier="view-side",
-        lat=37.4419,
-        lng=-122.1419,
-        markers=[(37.4419, -122.1419)]
-    )
-    sndmap = Map(
-        identifier="sndmap",
-        lat=37.4419,
-        lng=-122.1419,
-        markers={'http://maps.google.com/mapfiles/ms/icons/green-dot.png': [(37.4419, -122.1419)],
-                 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png': [(37.4300, -122.1400)]}
+        lat=57.0642,
+        lng=9.8985,
+        zoom=18,
+        style="position: fixed; height: 89vh; padding: 0; width: 100%;",
     )
     epsg_list = get_list_of_epsg_codes()
-    return render_template('googlemaps.html', api_key=os.environ.get("GOOGLE_MAPS_API_KEY"), epsg_list=epsg_list)
+    return render_template('googlemaps.html', googlemap=mymap, epsg_list=epsg_list)
 
 
 def get_list_of_epsg_codes():

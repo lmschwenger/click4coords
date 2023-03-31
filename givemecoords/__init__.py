@@ -10,7 +10,7 @@ def create_app():
 
     from givemecoords.projection.routes import gmaps
     GoogleMaps(app)
-    app.config['GOOGLEMAPS_KEY'] = Config.GOOGLE_MAPS_API_KEY
+    app.config['GOOGLEMAPS_API_KEY'] = Config.GOOGLE_MAPS_API_KEY
     app.register_blueprint(gmaps)
 
     return app

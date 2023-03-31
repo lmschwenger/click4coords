@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <title>Google Maps Example</title>
     <script src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}"></script>
+    <script src="{{ url_for( 'static', filename='main.js') }}"></script>
     <script>showDialog("Right click to save coordinates~~~");</script>
 </head>
 
@@ -48,7 +49,6 @@
     <p>WITH PROJ.</p>
 </footer>
 
-<script src="{{ url_for( 'static', filename='main.js') }}"></script>
 </body>
 </html>
 

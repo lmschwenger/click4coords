@@ -42,15 +42,15 @@ var map;
 function initialize() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 57.0642, lng: 9.8985},
-        zoom: 12,
-
+        zoom: 18,
+        mapTypeId: 'satellite'
     });
     google.maps.event.addListener(map, 'rightclick', function(event) {
         document.getElementById('latitude').value = event.latLng.lat();
         document.getElementById('longitude').value = event.latLng.lng();
     });
 }
-google.maps.event.addDomListener(window, 'load', initialize);
+google.maps.event.addEventListener(window, 'load', initialize);
 
 function showDialog() {
   var dialog = document.createElement('div');

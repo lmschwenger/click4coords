@@ -42,8 +42,8 @@ var map;
 function initialize() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 57.0642, lng: 9.8985},
-        zoom: 18,
-        mapTypeId: 'satellite'
+        zoom: 12,
+
     });
     google.maps.event.addListener(map, 'rightclick', function(event) {
         document.getElementById('latitude').value = event.latLng.lat();

@@ -18,7 +18,8 @@ def map():
         style="position: fixed; height: 89vh; padding: 0; width: 100%;",
     )
     epsg_list = get_list_of_epsg_codes()
-    return render_template('googlemaps.html', googlemap=mymap, epsg_list=epsg_list)
+    return render_template('googlemaps.html', API_KEY=os.environ.get("GOOGLE_MAPS_API_KEY"),
+                           googlemap=mymap, epsg_list=epsg_list)
 
 
 def get_list_of_epsg_codes():

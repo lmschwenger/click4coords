@@ -50,7 +50,7 @@ function initialize() {
         document.getElementById('longitude').value = event.latLng.lng();
     });
 }
-google.maps.event.addEventListener(window, 'load', initialize);
+google.maps.event.addDomListener(window, 'load', initialize);
 
 function showDialog() {
   var dialog = document.createElement('div');

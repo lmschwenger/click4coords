@@ -30,10 +30,9 @@
       transform: rotate(-2deg);
       transform-origin: center;
       outline: 1px solid #333;
-      text-shadow: 1 px;
+
       outline-offset: -1px;
       padding: 0px 2px;
-      background-color: #333;
       color: #fff;
     }
     span.coordinates {

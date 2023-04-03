@@ -81,6 +81,7 @@
       top: 20vh;
       left: 1vw;
       margin-top: 0;
+      width: 12%;
       z-index: 1;
       background-color: white;
       padding: 1rem 2rem;
@@ -101,5 +102,37 @@
 
     select {
       margin-bottom: 0.5rem;
+    }
+
+    .arrow-up-button {
+      position: relative;
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #0077CC;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .arrow-up {
+      position: absolute;
+      top: -10px;
+      left: calc(50% - 5px);
+      border-width: 10px 10px 0px 10px;
+      border-style: solid;
+      border-color: #0077CC transparent transparent transparent;
+}
+
+    #convert-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #convert-buttons p {
+      margin: 0 10px;
     }
 </style>

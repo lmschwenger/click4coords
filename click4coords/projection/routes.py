@@ -46,6 +46,29 @@ def convert():
         return jsonify({'error': str(e)})
 
 
+@gmaps.route('/convert_to_wgs', methods=['POST'])
+def convert_to_wgs():
+    try:
+        lat = float(request.json['latitude'])
+        lon = float(request.json['longitude'])
+
+        epsg = request.json['epsg']
+        code = epsg.split(':')[1]
+
+        src_crs = pyproj.CRS.from_epsg(int(code))  # EPSG code for UTM zone 32N
+        dst_crs = pyproj.CRS.from_epsg(4326)  # EPSG code for WGS84
+
+        transformer = pyproj.Transformer.from_crs(src_crs, dst_crs)
+
+        projected = transformer.transform(lat, lon)
+        return jsonify({
+            'x': projected[0],
+            'y': projected[1]
+        })
+    except Exception as e:
+        return jsonify({'error': str(e)})
+
+
 @gmaps.route('/get_utm', methods=['POST'])
 def get_utm():
     try:

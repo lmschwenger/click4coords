@@ -47,7 +47,46 @@ function convert() {
     });
 }
 
-function copyToClipboard() {
+function convert_to_wgs() {
+    var latitude = document.getElementById('result1').value;
+    var longitude = document.getElementById('result2').value;
+    var epsg = document.getElementById('epsg').value;
+
+    fetch('/convert_to_wgs', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            'latitude': latitude,
+            'longitude': longitude,
+            'epsg': epsg
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('latitude').value = data.x;
+        document.getElementById('longitude').value = data.y;
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
+function copyToClipboard_wgs() {
+  const latitude = document.getElementById("latitude").value;
+  const longitude = document.getElementById("longitude").value;
+  const textToCopy = latitude + "," + longitude;
+
+  const textarea = document.createElement("textarea");
+  textarea.value = textToCopy;
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand("copy");
+  document.body.removeChild(textarea);
+}
+
+function copyToClipboard_utm() {
   const result1 = document.getElementById("result1").value;
   const result2 = document.getElementById("result2").value;
   const textToCopy = result1 + "," + result2;
@@ -59,7 +98,6 @@ function copyToClipboard() {
   document.execCommand("copy");
   document.body.removeChild(textarea);
 }
-
 
 var map;
 var geocoder;
@@ -170,3 +208,37 @@ window.onload = function() {
   showDialog();
 };
 
+
+function snap_to_map(map) {
+    var map;
+    var latitude = parseFloat(document.getElementById("latitude").value);
+    var longitude = parseFloat(document.getElementById("longitude").value);
+
+    map.setCenter({ lat: latitude, lng: longitude });
+
+}
+
+function snap_to_map_utm(map) {
+    var latitude = document.getElementById('result1').value;
+    var longitude = document.getElementById('result2').value;
+    var epsg = document.getElementById('epsg').value;
+
+    fetch('/convert_to_wgs', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            'latitude': latitude,
+            'longitude': longitude,
+            'epsg': epsg
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        map.setCenter({ lat: data.x, lng: data.y })
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}

@@ -35,6 +35,8 @@
     <input id="latitude" type="text">
     <label for="longitude">Longitude:</label>
     <input id="longitude" type="text">
+    <input type="button" value="Show Location" onclick="snap_to_map(map)">
+    <button id="copy-btn_wgs" onclick="copyToClipboard_wgs()">Copy to clipboard</button>
 
     <div id="result-box">
         <h2 style="font-family: 'Courier New', monospace;">Conversion</h2>
@@ -44,15 +46,16 @@
                 <option value="{{ item }}">{{ item }}</option>
                 {% endfor %}
             </select>
-            <button id='convert-btn' onclick="convert()">Convert</button>
+            <button id='convert-btn' onclick="convert()">&#x2193;</button>
+            <button id='convert-btn2' onclick="convert_to_wgs()">&#8593;</button>
         </div>
         <label for="Latitude">Result 1:</label>
         <input id="result1" type="text">
         <label for="Longitude">Result 2:</label>
         <input id="result2" type="text">
     </div>
-
-    <button id="copy-btn" onclick="copyToClipboard()">Copy to clipboard</button>
+    <input type="button" value="Show Location" onclick="snap_to_map_utm(map)">
+    <button id="copy-btn_utm" onclick="copyToClipboard_utm()">Copy to clipboard</button>
 
 </div>
 

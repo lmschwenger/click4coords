@@ -1,17 +1,18 @@
 import os
 
 import pyproj
+from flask import Blueprint, render_template, request, jsonify
+from flask_googlemaps import Map
 from pyproj.aoi import AreaOfInterest
 from pyproj.database import query_utm_crs_info
 
-from flask import Blueprint, render_template, request, jsonify
-from flask_googlemaps import Map
+from click4coords.projection.utm_codes import EPSGCodes
 
 gmaps = Blueprint('GoogleMaps', __name__)
 
 
 @gmaps.route("/")
-def map():
+def render_map():
     # creating a map in the view
     mymap = Map(
         identifier="view-side",
@@ -20,14 +21,10 @@ def map():
         zoom=18,
         style="position: fixed; height: 89vh; padding: 0; width: 100%;",
     )
-    epsg_list = get_list_of_epsg_codes()
+
+    epsg_list = EPSGCodes.epsg_codes
     return render_template('googlemaps.html', API_KEY=os.environ.get("GOOGLE_MAPS_API_KEY"),
                            googlemap=mymap, epsg_list=epsg_list)
-
-
-def get_list_of_epsg_codes():
-    epsg_codes = ['EPSG:25832', 'EPSG:3182', 'EPSG:4326']
-    return epsg_codes
 
 
 @gmaps.route('/convert', methods=['POST'])
@@ -64,9 +61,11 @@ def get_utm():
                 north_lat_degree=lat,
             ),
         )
+
         crs = pyproj.CRS.from_epsg(utm_crs_list[0].code)
-        print(str(crs))
-        return jsonify({'crs': str(crs)})
+        utm_zone = str(crs)[-2:]
+
+        return jsonify({'crs': f"UTM Zone: {utm_zone}"})
 
     except Exception as e:
         return jsonify({'error': str(e)})

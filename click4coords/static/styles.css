@@ -77,15 +77,15 @@
     }
 
     #data-box {
-      position: absolute;
-      top: 15rem;
-      left: 10px;
+      position: fixed;
+      top: 20vh;
+      left: 1vw;
       margin-top: 0;
       z-index: 1;
       background-color: white;
       padding: 1rem 2rem;
       border: .1rem solid black;
-      border-radius: 5px;
+      border-radius: 0.05vh;
     }
 
     label {

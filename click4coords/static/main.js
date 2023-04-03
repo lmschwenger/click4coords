@@ -62,16 +62,51 @@ function copyToClipboard() {
 
 
 var map;
+var geocoder;
+
 function initialize() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 57.0642, lng: 9.8985},
         zoom: 18,
         mapTypeId: 'satellite'
     });
-    google.maps.event.addListener(map, 'rightclick', function(event) {
-        document.getElementById('latitude').value = event.latLng.lat();
-        document.getElementById('longitude').value = event.latLng.lng();
+    geocoder = new google.maps.Geocoder();
+
+    // Add a search box to the map
+    var searchBox = new google.maps.places.SearchBox(document.getElementById('search-input'));
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('search-input'));
+
+    // Bias the search box to within the bounds of the current map
+    map.addListener('bounds_changed', function() {
+        searchBox.setBounds(map.getBounds());
     });
+
+    // Listen for the event fired when the user selects a prediction and retrieve
+    // more details for that place.
+    searchBox.addListener('places_changed', function() {
+        var places = searchBox.getPlaces();
+
+        if (places.length == 0) {
+            return;
+        }
+
+        // For each place, get the icon, name and location.
+        var bounds = new google.maps.LatLngBounds();
+        places.forEach(function(place) {
+            if (!place.geometry) {
+                console.log("Returned place contains no geometry");
+                return;
+            }
+            if (place.geometry.viewport) {
+                // Only geocodes have viewport.
+                bounds.union(place.geometry.viewport);
+            } else {
+                bounds.extend(place.geometry.location);
+            }
+        });
+        map.fitBounds(bounds);
+    });
+
     google.maps.event.addListener(map, 'rightclick', function(event) {
         document.getElementById('latitude').value = event.latLng.lat();
         document.getElementById('longitude').value = event.latLng.lng();
@@ -79,6 +114,7 @@ function initialize() {
         get_utm(); // call the get_utm function with the latitude and longitude values
     });
 }
+
 google.maps.event.addDomListener(window, 'load', initialize);
 
 function showDialog() {

@@ -4,11 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <title>Google Maps Example</title>
+    <title>Click 4 Coordinates</title>
 
     <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
     <title>C4C</title>
-    <script src="https://maps.googleapis.com/maps/api/js?key={{API_KEY}}&callback=initMap"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{API_KEY}}&callback=initMap&libraries=places"></script>
 
     <script src="{{ url_for( 'static', filename='main.js') }}"></script>
     <script>showDialog("Right click to save coordinates~~~");</script>
@@ -23,10 +23,14 @@
 <div id="utm_zone-box">
 
 </div>
+<div id="search-container">
+    <input id="search-input" placeholder="Enter an address" style="width: 80%" type="text">
+</div>
 <div id="data-box">
+
     <h2 style="font-family: 'Courier New';">Coordinates</h2>
     <label for="utm-zone"></label>
-    <input id="utm-zone" type="text" disabled style="border: .1rem solid grey;">
+    <input disabled id="utm-zone" style="" type="text">
     <label for="latitude">Latitude:</label>
     <input id="latitude" type="text">
     <label for="longitude">Longitude:</label>
